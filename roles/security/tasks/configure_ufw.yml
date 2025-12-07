@@ -18,9 +18,7 @@
   community.general.ufw:
     rule: allow
     port: "{{ item }}"
-  loop:
-    - http
-    - https
+  loop: [http,https]
   when: inventory_hostname == "vm-docker"
 
 - name: Enable UFW and log everything

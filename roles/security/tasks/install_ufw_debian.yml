@@ -1,6 +1,6 @@
 ---
 - name: Install UFW
   ansible.builtin.apt:
-    name:
-      - ufw
+    name: ufw
     state: present
+  tags: test
