@@ -1,7 +1,5 @@
 # 🐋 Selfhost Playbook
 
-Manage my server with Ansible.
-
 ![Selfhost Schema](assets/selfhost_schema.drawio.svg)
 
 *Made with [Drawio](https://www.drawio.com/).*
