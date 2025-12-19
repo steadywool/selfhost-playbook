@@ -29,6 +29,7 @@ docker:
 
       # Common variables
       additional_packages:
+        - nfs-common
         - qemu-guest-agent
       additional_services:
         - qemu-guest-agent.service

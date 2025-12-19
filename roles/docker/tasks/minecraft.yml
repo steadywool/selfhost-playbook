@@ -1,10 +1,12 @@
 ---
-- name: Create Minecraft directory
-  ansible.builtin.file:
-    path: "/mnt/minecraft_data"
-    state: directory
-    owner: '1000'
-    group: '1000'
+- name: Create Docker NFS volume for Minecraft
+  community.docker.docker_volume:
+    state: present
+    volume_name: minecraft_nfs
+    driver_options:
+      type: "nfs"
+      o: "addr={{ hostvars['srv-truenas']['ansible_host'] }}"
+      device: ":/mnt/default-pool/minecraft"
 
 - name: Run Minecraft server
   community.docker.docker_container:
@@ -17,10 +19,10 @@
     ports:
       - 25565:25565/tcp
     volumes:
-      - "/mnt/minecraft_data:/data"
+      - minecraft_nfs:/data
     env:
       # General
-      MEMORY: "4G"
+      MEMORY: "6G"
       USE_AIKAR_FLAGS: "true"
       EULA: "true"
       ONLINE_MODE: "true"
@@ -30,8 +32,6 @@
       # Gameplay
       TYPE: "FABRIC"
       VERSION: "1.21.4"
-      SERVER_NAME: "minecraft-survival"
-      MOTD: "Welcome to Steadywool's Minecraft server"
       DIFFICULTY: "normal"
       MODE: "survival"
       # World
