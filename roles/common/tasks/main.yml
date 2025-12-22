@@ -25,3 +25,7 @@
   loop: "{{ additional_services }}"
   when: additional_services is defined
   tags: common,services
+
+- name: Configure SSH
+  ansible.builtin.import_tasks: configure_ssh.yml
+  tags: common,ssh

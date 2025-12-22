@@ -5,7 +5,7 @@
   become: true
   roles:
     - common
-    - security
+    - crowdsec
     - docker
 
 - name: Start maintenance
