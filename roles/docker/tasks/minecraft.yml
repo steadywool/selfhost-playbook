@@ -1,12 +1,10 @@
 ---
-- name: Create Docker NFS volume for Minecraft
-  community.docker.docker_volume:
-    state: present
-    volume_name: minecraft_nfs
-    driver_options:
-      type: "nfs"
-      o: "addr={{ hostvars['srv-truenas']['ansible_host'] }}"
-      device: ":/mnt/default-pool/minecraft"
+- name: Create Minecraft directory
+  ansible.builtin.file:
+    path: "/mnt/minecraft_data"
+    state: directory
+    owner: '1000'
+    group: '1000'
 
 - name: Run Minecraft server
   community.docker.docker_container:
@@ -19,7 +17,7 @@
     ports:
       - 25565:25565/tcp
     volumes:
-      - minecraft_nfs:/data
+      - /mnt/minecraft_data:/data
     env:
       # General
       MEMORY: "6G"
