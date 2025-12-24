@@ -62,7 +62,3 @@
 - name: Deploy Beszel Agent container
   ansible.builtin.import_tasks: beszel_agent.yml
   tags: docker,beszel-agent
-
-- name: Deploy Diun container
-  ansible.builtin.import_tasks: diun.yml
-  tags: docker,diun
